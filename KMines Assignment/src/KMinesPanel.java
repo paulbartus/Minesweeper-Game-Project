@@ -31,6 +31,7 @@ public class KMinesPanel extends JPanel
 			int Kchoice = generator.nextInt(9);
 //			buttons[choice][Kchoice] = MINE;
 			buttons[5][5] = MINE;
+			buttons[3][3] = MINE;
 		}
 	}
 	
