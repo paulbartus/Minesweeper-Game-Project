@@ -177,14 +177,15 @@ public class KMinesMouseAdapter extends MouseAdapter
 //							myPanel.buttons[choice][Kchoice] = MINE;
 //						}
 						//Pickup random Mines
-						for (int i=0; i<3; i++) {
-							int choice = generator.nextInt(9);
-							int Kchoice = generator.nextInt(9);
-							myPanel.buttons[choice][Kchoice] = MINE;
-//							for (int j=0; j<myPanel.buttons.length; j++) {
-								
-//							}
-						}
+						
+//						for (int i=0; i<3; i++) {
+//							int choice = generator.nextInt(9);
+//							int Kchoice = generator.nextInt(9);
+//							myPanel.buttons[choice][Kchoice] = MINE;
+////							for (int j=0; j<myPanel.buttons.length; j++) {
+//								
+////							}
+//						}
 						if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
 							myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = blackMine;
 						}
@@ -198,19 +199,19 @@ public class KMinesMouseAdapter extends MouseAdapter
 										neighborCount++;
 										myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
 									}
-									if (j>0 && myPanel.buttons[i][j-1] == MINE) {   //Up
+									else if (j>0 && myPanel.buttons[i][j-1] == MINE) {   //Up
 										neighborCount++;
 										myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
 									}
-//									if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX-1][myPanel.mouseDownGridY-1] == MINE) { //Down Right
+//									else if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX-1][myPanel.mouseDownGridY-1] == MINE) { //Down Right
 //										neighborCount++;
 //										myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.YELLOW;
 //									}
-//									if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX+1][myPanel.mouseDownGridY+1] == MINE) { //Up Left
+//									else if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX+1][myPanel.mouseDownGridY+1] == MINE) { //Up Left
 //										neighborCount++;
 //										myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GREEN;
 //									}
-//									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
+									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
 								}
 							}
 						}

@@ -22,6 +22,17 @@ public class KMinesPanel extends JPanel
 	int[][] buttons = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	int[][] counts = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	int MINE = -1;
+	
+	private Random generator = new Random();
+	public void randomMines() {
+		for (int i=0; i<8; i++) {
+			int choice = generator.nextInt(9);
+			int Kchoice = generator.nextInt(9);
+//			buttons[choice][Kchoice] = MINE;
+			buttons[5][5] = MINE;
+		}
+	}
 	
 	public KMinesPanel() {   //This is the constructor... this code runs first to initialize
 		//  KEVINIIIIIIIIIIIIIIIIIIIIINNN....  pienso que no se necesitan los "if"s
@@ -44,6 +55,7 @@ public class KMinesPanel extends JPanel
 				buttons[x][y] = 0; 
 			}
 		}
+		randomMines();
 	}
 	
 	public void paintComponent(Graphics g) 
