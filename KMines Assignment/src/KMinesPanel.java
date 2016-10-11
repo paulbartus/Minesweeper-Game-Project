@@ -32,6 +32,7 @@ public class KMinesPanel extends JPanel
 //			buttons[choice][Kchoice] = MINE;
 			buttons[5][5] = MINE;
 			buttons[3][3] = MINE;
+			buttons[4][3] = MINE;
 		}
 	}
 	
