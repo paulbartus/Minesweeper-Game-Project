@@ -197,11 +197,35 @@ public class KMinesMouseAdapter extends MouseAdapter
 									int neighborCount = 0;
 									if (i>0 && j>0 && myPanel.buttons[i-1][j-1] == MINE) {   //Up Left
 										neighborCount++;
-										myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
+										System.out.println(neighborCount);
 									}
 									else if (j>0 && myPanel.buttons[i][j-1] == MINE) {   //Up
 										neighborCount++;
-										myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
+										System.out.println(neighborCount);
+									}
+									else if (i<9 && j>0 && myPanel.buttons[i+1][j-1] == MINE) {   //Up Right
+										neighborCount++;
+										System.out.println(neighborCount);
+									}
+									else if (i>0 && myPanel.buttons[i-1][j] == MINE) {   //Left
+										neighborCount++;
+										System.out.println(neighborCount);
+									}
+									else if (i<9 && myPanel.buttons[i+1][j] == MINE) {   //Right
+										neighborCount++;
+										System.out.println(neighborCount);
+									}
+									else if (i>0 && j<9 && myPanel.buttons[i-1][j+1] == MINE) {   //Down Left
+										neighborCount++;
+										System.out.println(neighborCount);
+									}
+									else if (j<9 && myPanel.buttons[i][j+1] == MINE) {   //Down
+										neighborCount++;
+										System.out.println(neighborCount);
+									}
+									else if (i<9 && j<9 && myPanel.buttons[i+1][j+1] == MINE) {   //Down Right
+										neighborCount++;
+										System.out.println(neighborCount);
 									}
 //									else if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX-1][myPanel.mouseDownGridY-1] == MINE) { //Down Right
 //										neighborCount++;
@@ -211,7 +235,7 @@ public class KMinesMouseAdapter extends MouseAdapter
 //										neighborCount++;
 //										myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GREEN;
 //									}
-									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
+//									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
 								}
 							}
 						}
