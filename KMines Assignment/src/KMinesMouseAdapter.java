@@ -3,96 +3,29 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
-
 import javax.swing.JFrame;
 
 public class KMinesMouseAdapter extends MouseAdapter 
 {
-	private Random generator = new Random();
-	Color newColor = null;
-	Color otherColor = null;
-	final int MINE =-1;
+	final int EMPTY = 0;
+	final int MINE = -1;
+	final int FLAG = 1;
+	final int FLAGGED = 2;
+	final int CHECKED = -2;
 	Color blackMine = Color.BLACK;
-	//	public void randomNumbers() {
-	//		for (int i=0; i<10; i++) {
-	//			for (int j=0; j<10; j++) {
-	//				int choice = generator.nextInt(9);
-	//				int Kchoice = generator.nextInt(9);
-	//			}
-	//		}
-	//	}
+	Color redFlag = Color.RED;
 
-
-	//provide distinct variables with color to 
-	//	avoid the repetitions of color when clicked a grid 
-
-	public void RandomMinesCount(MouseEvent e) {
-		//		ArrayList<Integer> list = new ArrayList <Integer>();
-		//		Component c = e.getComponent();
-		//		while (!(c instanceof JFrame)) {
-		//			c = c.getParent();
-		//			if (c == null) {
-		//				return;
-		//			}
-		//		}
-		//		JFrame myFrame = (JFrame) c;
-		//		KMinesPanel myPanel = (KMinesPanel) myFrame.getContentPane().getComponent(0);
-		////		Insets myInsets = myFrame.getInsets();
-		////		int x1 = myInsets.left;
-		////		int y1 = myInsets.top;
-		////		e.translatePoint(-x1, -y1);
-		////		int x = e.getX();
-		////		int y = e.getY();
-		////		myPanel.x = x;
-		////		myPanel.y = y;
-		//		//Initialize list of random pairs
-		//		for (int i=0; i<myPanel.counts.length; i++) {
-		//			for (int j=0; j<myPanel.counts.length; j++) {
-		//				list.add(i*100+j);
-		//			}
-		//		}
-		//		//pickup Random MINES
-		//		myPanel.counts = new int[9][9];
-		//		for (int i=0; i<10; i++) {
-		//			int choice = (int) (Math.random()*10);
-		//			myPanel.counts[list.get(choice)/100][list.get(choice)%100] = MINE;
-		//			list.remove(choice);  //Removes the element at the specified position in this list.
-		//		}
-		//		//Initialize NEIGHBOR COUNTS.
-		//		for (int i=0; i<myPanel.counts.length; i++) {
-		//			for (int j=0; j<myPanel.counts.length; j++) {
-		//				if (myPanel.counts[i][j] != MINE) {
-		//					int neighborCount = 0;
-		//					if (i>0 && j>0 && myPanel.counts[i-1][j-1] == MINE) {   //Up Left
-		//						neighborCount++;
-		//					}
-		//					if (j>0 && myPanel.counts[i][j-1] == MINE) {   //Up
-		//						neighborCount++;
-		//					}
-		//					if (i<myPanel.counts.length - 1 && j<myPanel.counts.length - 1 && myPanel.counts[i+1][j+1] == MINE) { //Down Right
-		//						neighborCount++;
-		//					}
-		//					myPanel.counts[i][j] = neighborCount;
-		//				}
-		//			}
-		//		}
-		//		for (int i=0; i<myPanel.buttons.length; i++) {
-		//			for (int j=0; j<myPanel.buttons.length; j++) {
-		////				if (e.getSource().equals(myPanel.buttons[x][y])) {   // Kevin...  Nosé si está bién
-		//					myPanel.buttons[i][j] = Color.GREEN;
-		////				}
-		//			}
-		//		}
-	}
-
-	public void mousePressed(MouseEvent e) {
-		switch (e.getButton()) {
+	public void mousePressed(MouseEvent e) 
+	{
+		switch (e.getButton()) 
+		{
 		case 1:		//Left mouse button
 			Component c = e.getComponent();
-			while (!(c instanceof JFrame)) {
+			while (!(c instanceof JFrame)) 
+			{
 				c = c.getParent();
-				if (c == null) {
+				if (c == null) 
+				{
 					return;
 				}
 			}
@@ -122,14 +55,17 @@ public class KMinesMouseAdapter extends MouseAdapter
 	public void mouseReleased(MouseEvent e) 
 	{
 		Component c = e.getComponent();
-		while (!(c instanceof JFrame)) {
+		while (!(c instanceof JFrame)) 
+		{
 			c = c.getParent();
-			if (c == null) {
+			if (c == null) 
+			{
 				return;
 			}
 		}
 		JFrame myFrame = (JFrame)c;
-		KMinesPanel myPanel = (KMinesPanel) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
+		KMinesPanel myPanel = (KMinesPanel) myFrame.getContentPane().getComponent(0);  
+		//Can also loop among components to find MyPanel
 		Insets myInsets = myFrame.getInsets();
 		int x1 = myInsets.left;
 		int y1 = myInsets.top;
@@ -141,9 +77,11 @@ public class KMinesMouseAdapter extends MouseAdapter
 		int gridX = myPanel.getGridX(x, y);
 		int gridY = myPanel.getGridY(x, y);
 
-		switch (e.getButton()) {
+		switch (e.getButton()) 
+		{
 		case 1:	//Left mouse button
-			if ((myPanel.mouseDownGridX == -1) || (myPanel.mouseDownGridY == -1)) {
+			if ((myPanel.mouseDownGridX == -1) || (myPanel.mouseDownGridY == -1)) 
+			{
 				//Had pressed outside do nothing
 			} else {
 				if ((gridX == -1) || (gridY == -1)) {
@@ -156,51 +94,166 @@ public class KMinesMouseAdapter extends MouseAdapter
 					} else {
 						//Released the mouse button on the same cell where it was pressed
 						//On all the grids
-						if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
-							myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = blackMine;
-							//Mine boom
+						if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == FLAG) {
+							//Do nothing
 						} else {
-							//Initialize NEIGHBOR COUNTS.
-							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] != MINE) 
-							{
-								int neighborCount = 0;
-								for (int i=-1; i<2; i++) 
-								{
-									for (int j=-1; j<2; j++) 
-									{
 
-										if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-												== MINE) 
+							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
+								myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = blackMine;
+								//Mine boom
+							} else {
+								//Initialize NEIGHBOR COUNTS.
+								if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] != MINE ) 
+								{
+									int neighborCount = 0;
+									if (myPanel.mouseDownGridX>0 && myPanel.mouseDownGridX<8 && 
+											myPanel.mouseDownGridY>0 && myPanel.mouseDownGridY<8)
+										//Inner squares
+									{
+										for (int i=-1; i<2; i++) 
 										{
-											neighborCount++;
+											for (int j=-1; j<2; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
 										}
 									}
-								}
-								System.out.println(neighborCount);
-								//									else if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX-1][myPanel.mouseDownGridY-1] == MINE) { //Down Right
-								//										neighborCount++;
-								//										myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.YELLOW;
-								//									}
-								//									else if (i<myPanel.coverButtons.length - 1 && j<myPanel.coverButtons.length - 1 && myPanel.buttons[myPanel.mouseDownGridX+1][myPanel.mouseDownGridY+1] == MINE) { //Up Left
-								//										neighborCount++;
-								//										myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GREEN;
-								//									}
-								//									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = neighborCount;
-							}
-							//						for (int i=0; i<myPanel.coverButtons.length; i++) {
-							//							for (int j=0; j<myPanel.coverButtons.length; j++) {
-							//								if (myPanel.mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
-							//									myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLACK;
-							//								}
-							//							}
-							//						}
+									if (myPanel.mouseDownGridX==0 && myPanel.mouseDownGridY==0)
+										//Top Left
+									{
+										for (int i=0; i<2; i++) 
+										{
+											for (int j=0; j<2; j++) 
+											{
 
-							//						newColor = Color.RED;
-							//						if ((myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY]).equals(newColor)) {
-							//							newColor = Color.CYAN;
-							//						}
-							//						myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-							//						myPanel.repaint();
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridX==8 && myPanel.mouseDownGridY==0)
+										//Top Right
+									{
+										for (int i=-1; i<1; i++) 
+										{
+											for (int j=0; j<2; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridX==8 && myPanel.mouseDownGridY==8)
+										//Bottom Right
+									{
+										for (int i=-1; i<1; i++) 
+										{
+											for (int j=-1; j<1; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridX==0 && myPanel.mouseDownGridY==8)
+										//Bottom Left
+									{
+										for (int i=0; i<2; i++) 
+										{
+											for (int j=-1; j<1; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridX==0 && myPanel.mouseDownGridY>0 && myPanel.mouseDownGridY<8)
+										//Left Column
+									{
+										for (int i=0; i<2; i++) 
+										{
+											for (int j=-1; j<2; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridX==8 && myPanel.mouseDownGridY>0 && myPanel.mouseDownGridY<8)
+										//Right Column
+									{
+										for (int i=-1; i<1; i++) 
+										{
+											for (int j=-1; j<2; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridY==0 && myPanel.mouseDownGridX>0 && myPanel.mouseDownGridX<8)
+										//Top Row
+									{
+										for (int i=-1; i<2; i++) 
+										{
+											for (int j=0; j<2; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									if (myPanel.mouseDownGridY==8 && myPanel.mouseDownGridX>0 && myPanel.mouseDownGridX<8)
+										//Bottom Row
+									{
+										for (int i=-1; i<2; i++) 
+										{
+											for (int j=-1; j<1; j++) 
+											{
+
+												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+														== MINE) 
+												{
+													neighborCount++;
+												}
+											}
+										}
+									}
+									System.out.println(neighborCount);
+								}
+							}
 						}
 					}
 
@@ -209,8 +262,11 @@ public class KMinesMouseAdapter extends MouseAdapter
 			myPanel.repaint();
 			break;
 		case 3:		//Right mouse button 
-			//Click out the grid with right click
-
+			if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == EMPTY) {
+				myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = redFlag;
+				//Mine boom
+			}
+			myPanel.repaint();
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing

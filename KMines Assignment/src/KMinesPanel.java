@@ -23,28 +23,35 @@ public class KMinesPanel extends JPanel
 	int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	int[][] counts = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	int MINE = -1;
+	int EMPTY = 0;
 	
 	private Random generator = new Random();
+
 	public void randomMines() {
-		for (int i=0; i<8; i++) {
+		for (int i=0; i<9; i++) {
+			for (int j=0; j<9; j++) {
+				buttons[i][j] = EMPTY;
+			}
+		}
+		for (int i=0; i<10; i++) {
 			int choice = generator.nextInt(9);
 			int Kchoice = generator.nextInt(9);
-//			buttons[choice][Kchoice] = MINE;
-			buttons[5][5] = MINE;
-			buttons[3][3] = MINE;
-			buttons[4][3] = MINE;
+			buttons[choice][Kchoice] = MINE;
+//			buttons[5][5] = MINE;
+//			buttons[3][3] = MINE;
+//			buttons[4][3] = MINE;
 		}
 	}
 	
 	public KMinesPanel() {   //This is the constructor... this code runs first to initialize
 		//  KEVINIIIIIIIIIIIIIIIIIIIIINNN....  pienso que no se necesitan los "if"s
-		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
+		if (INNER_CELL_SIZE + (generator).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
-		if (TOTAL_COLUMNS + (new Random()).nextInt(1) < 2) {	//Use of "random" to prevent unwanted Eclipse warning
+		if (TOTAL_COLUMNS + (generator).nextInt(1) < 2) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_COLUMNS must be at least 2!");
 		}
-		if (TOTAL_ROWS + (new Random()).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
+		if (TOTAL_ROWS + (generator).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   // All of the Grid
