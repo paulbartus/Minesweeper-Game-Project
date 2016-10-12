@@ -12,6 +12,7 @@ public class KMinesMouseAdapter extends MouseAdapter
 	final int FLAG = 1;
 	final int FLAGGED = 2;
 	final int CHECKED = -2;
+	Color grayChecked = Color.GRAY;
 	Color blackMine = Color.BLACK;
 	Color redFlag = Color.RED;
 
