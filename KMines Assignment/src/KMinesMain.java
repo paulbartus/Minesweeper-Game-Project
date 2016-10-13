@@ -2,12 +2,15 @@ import javax.swing.JFrame;
 
 public class KMinesMain
 {
-	public static void main(String[] args) {
-		JFrame myFrame = new JFrame("Color Grid");
+	public static JFrame myFrame;
+
+	public static void main(String[] args) 
+	{
+		myFrame = new JFrame("KMines Operation");
 		
-		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.setLocation(400, 150);
-		myFrame.setSize(340, 350);
+		myFrame.setSize(350, 375);
 
 		KMinesPanel myPanel = new KMinesPanel();
 		myFrame.add(myPanel);

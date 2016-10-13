@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,7 +18,7 @@ public class KMinesMouseAdapter extends MouseAdapter
 	Color redFlag = Color.RED;
 	int neighborCount = 0;
 	String localMines;
-	
+
 	public void mousePressed(MouseEvent e) 
 	{
 		switch (e.getButton()%2) 
@@ -68,7 +67,7 @@ public class KMinesMouseAdapter extends MouseAdapter
 				return;
 			}
 		}
-		JFrame myFrame = (JFrame)c;
+		JFrame myFrame = (JFrame) c;
 		KMinesPanel myPanel = (KMinesPanel) myFrame.getContentPane().getComponent(0);  
 		//Can also loop among components to find MyPanel
 		Insets myInsets = myFrame.getInsets();
@@ -106,6 +105,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 
 							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
 								myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = blackMine;
+								KMinesGameOver blownMine = new KMinesGameOver();
+								blownMine.showGameOverDialog();
 								//Mine boom
 							} else {
 								//Initialize NEIGHBOR COUNTS.
@@ -257,16 +258,16 @@ public class KMinesMouseAdapter extends MouseAdapter
 											}
 										}
 									}
-									System.out.println(neighborCount);
+									System.out.println("Neighbor: "+neighborCount);
 									myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = grayChecked;
 									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = CHECKED;
 								}
 							}
 						}
-						System.out.println(myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY]);
+						System.out.println("Identity: "+myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY]);
 						if (neighborCount != 0) {
 							localMines = Integer.toString(neighborCount);
-							System.out.println(localMines);
+							System.out.println("Local mines: "+localMines);
 						}
 					}
 				}
@@ -307,5 +308,10 @@ public class KMinesMouseAdapter extends MouseAdapter
 			//Do nothing
 			break;
 		}
+	}
+
+	protected void setLabel(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 }

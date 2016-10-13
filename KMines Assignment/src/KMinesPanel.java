@@ -12,7 +12,7 @@ public class KMinesPanel extends JPanel
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;   //Last row has only one cell
+	private static final int TOTAL_ROWS = 9;
 	
 	public int x = -1;
 	public int y = -1;
@@ -34,17 +34,16 @@ public class KMinesPanel extends JPanel
 			}
 		}
 		for (int i=0; i<10; i++) {
-			int choice = generator.nextInt(9);
-			int Kchoice = generator.nextInt(9);
-			buttons[choice][Kchoice] = MINE;
-//			buttons[5][5] = MINE;
-//			buttons[3][3] = MINE;
-//			buttons[4][3] = MINE;
+//			int choice = generator.nextInt(9);
+//			int Kchoice = generator.nextInt(9);
+//			buttons[choice][Kchoice] = MINE;
+			buttons[5][5] = MINE;
+			buttons[3][3] = MINE;
+			buttons[4][3] = MINE;
 		}
 	}
 	
 	public KMinesPanel() {   //This is the constructor... this code runs first to initialize
-		//  KEVINIIIIIIIIIIIIIIIIIIIIINNN....  pienso que no se necesitan los "if"s
 		if (INNER_CELL_SIZE + (generator).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
@@ -99,16 +98,12 @@ public class KMinesPanel extends JPanel
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), 
 					y1 + GRID_Y,
 					x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), 
-					y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS)));     //Aqui le borré el - 1 de "TOTAL_ROWS - 1"
+					y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS)));
 		}
-
-//		Draw an additional cell at the bottom left
-//		g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
 
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-//				if ((x == 0) || (y != TOTAL_ROWS - 1)) {  // esto era lo que tenía antes
 				if ((x == 0) || (y != TOTAL_ROWS)) {
 					Color c = coverButtons[x][y];
 					g.setColor(c);
@@ -130,16 +125,13 @@ public class KMinesPanel extends JPanel
 		if (y < 0) {   //Above the grid
 			return -1;
 		}
-		if ((x % (INNER_CELL_SIZE + 1) == 0) || (y % (INNER_CELL_SIZE + 1) == 0)) {   //Coordinate is at an edge; not inside a cell
+		if ((x % (INNER_CELL_SIZE + 1) == 0) || (y % (INNER_CELL_SIZE + 1) == 0)) { //Coordinate is at an edge; not inside a cell
 			return -1;
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-//		if (x == 0 && y == TOTAL_ROWS) {    //The lower left extra cell
-//			return x;
-//		}
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
-			return -1;				// Aqui fue:  tenía anteriormente "TOTAL_ROWS - 2"
+			return -1;
 		}
 		return x;
 	}
@@ -161,9 +153,6 @@ public class KMinesPanel extends JPanel
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-//		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
-//			return y;
-//		}
 		if (x < 0 || x > TOTAL_COLUMNS || y < 0 || y > TOTAL_ROWS) {   //Outside the rest of the grid
 			return -1;
 		}
