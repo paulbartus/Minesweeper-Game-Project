@@ -30,16 +30,16 @@ public class KMinesPanel extends JPanel
 	public void randomMines() {
 		for (int i=0; i<9; i++) {
 			for (int j=0; j<9; j++) {
-				buttons[i][j] = EMPTY;
+				buttons[i][j] = MINE;
 			}
 		}
 		for (int i=0; i<10; i++) {
 //			int choice = generator.nextInt(9);
 //			int Kchoice = generator.nextInt(9);
 //			buttons[choice][Kchoice] = MINE;
-			buttons[5][5] = MINE;
-			buttons[3][3] = MINE;
-			buttons[4][3] = MINE;
+			buttons[5][5] = EMPTY;
+			buttons[3][3] = EMPTY;
+			buttons[4][3] = EMPTY;
 		}
 	}
 	

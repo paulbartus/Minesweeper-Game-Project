@@ -3,6 +3,8 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+
 import javax.swing.JFrame;
 
 public class KMinesMouseAdapter extends MouseAdapter 
@@ -105,8 +107,9 @@ public class KMinesMouseAdapter extends MouseAdapter
 
 							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
 								myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = blackMine;
+								myPanel.repaint();
 								KMinesGameOver blownMine = new KMinesGameOver();
-								blownMine.showGameOverDialog();
+								blownMine.showGameOverDialog(e);
 								//Mine boom
 							} else {
 								//Initialize NEIGHBOR COUNTS.
@@ -123,7 +126,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] 
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -139,7 +143,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -155,7 +160,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -171,7 +177,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -187,7 +194,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -203,7 +211,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -219,7 +228,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -235,7 +245,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -251,7 +262,8 @@ public class KMinesMouseAdapter extends MouseAdapter
 											{
 
 												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE) 
+														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
+																== MINEFLAG) 
 												{
 													neighborCount++;
 												}
@@ -273,6 +285,13 @@ public class KMinesMouseAdapter extends MouseAdapter
 				}
 			}
 			myPanel.repaint();
+			KMinesGameOver winGame = new KMinesGameOver();
+			try {
+				winGame.showWinGameDialog(e);
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case 3:		//Right mouse button 
 			if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == EMPTY) {
@@ -308,10 +327,5 @@ public class KMinesMouseAdapter extends MouseAdapter
 			//Do nothing
 			break;
 		}
-	}
-
-	protected void setLabel(String string) {
-		// TODO Auto-generated method stub
-		
 	}
 }
