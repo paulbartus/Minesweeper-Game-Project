@@ -8,37 +8,24 @@ public class KMinesPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final int GRID_X = 25;
-	private static final int GRID_Y = 25;
-	private static final int INNER_CELL_SIZE = 29;
-	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;
+	public static final int GRID_X = 25;
+	public static final int GRID_Y = 25;
+	public static final int INNER_CELL_SIZE = 29;
+	public static final int TOTAL_COLUMNS = 9;
+	public static final int TOTAL_ROWS = 9;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	Color[][] coverButtons = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	int[][] buttons = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	int MINE = -1;
+	int[][] neighborButtons;
 	int EMPTY = 0;
-	
+	int MINE = -1;
+	int MINEFLAG = -2;
+	int DUMMYFLAG = 2;
+	int CHECKED = 1;
 	private Random generator = new Random();
-
-	public void randomMines() {
-		for (int i=0; i<9; i++) { //ACUERDATE BORRAR ESTO AL FINAL
-			for (int j=0; j<9; j++) {
-				buttons[i][j] = MINE;
-			}
-		}
-		for (int i=0; i<10; i++) {
-//			int choice = generator.nextInt(9);
-//			int Kchoice = generator.nextInt(9);
-//			buttons[choice][Kchoice] = MINE;
-			buttons[5][5] = EMPTY;
-			buttons[3][3] = EMPTY;
-			buttons[4][3] = EMPTY;
-		}
-	}
 	
 	public KMinesPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (generator).nextInt(1) < 1) //Use of "random" to prevent unwanted Eclipse warning
@@ -60,6 +47,10 @@ public class KMinesPanel extends JPanel
 				coverButtons[x][y] = Color.WHITE; 
 			}
 		}
+		randomMines();
+	}
+	
+	public void randomMines() {
 		for (int x = 0; x < TOTAL_COLUMNS; x++) // All of the Grid
 		{
 			for (int y = 0; y < TOTAL_ROWS; y++) 
@@ -67,7 +58,14 @@ public class KMinesPanel extends JPanel
 				buttons[x][y] = EMPTY; 
 			}
 		}
-		randomMines();
+		for (int i=0; i<10; i++) {
+//			int xMine = generator.nextInt(9);
+//			int yMine = generator.nextInt(9);
+//			buttons[xMine][yMine] = MINE;
+			buttons[5][5] = MINE;
+			buttons[3][3] = MINE;
+			buttons[4][3] = MINE;
+		}
 	}
 	
 	public void paintComponent(Graphics g) 
