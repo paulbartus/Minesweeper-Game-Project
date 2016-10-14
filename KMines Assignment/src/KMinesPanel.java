@@ -65,6 +65,8 @@ public class KMinesPanel extends JPanel
 			buttons[5][5] = MINE;
 			buttons[3][3] = MINE;
 			buttons[4][3] = MINE;
+			buttons[7][5] = MINE;
+			buttons[2][7] = MINE;
 		}
 	}
 	
