@@ -9,6 +9,6 @@ public class KMinesNeighbors extends JPanel
 	{
 		super.paintComponent(g);
 		
-		
+		//stuff
 	}
 }
