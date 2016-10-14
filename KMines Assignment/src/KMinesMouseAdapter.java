@@ -118,182 +118,21 @@ public class KMinesMouseAdapter extends MouseAdapter
 								//Initialize NEIGHBOR COUNTS.
 								if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == EMPTY) 
 								{
-									neighborCount = 0;
-									if (myPanel.mouseDownGridX>0 && myPanel.mouseDownGridX<8 && 
-											myPanel.mouseDownGridY>0 && myPanel.mouseDownGridY<8)
-										//Inner squares
-									{
-										for (int i=-1; i<2; i++) 
-										{
-											for (int j=-1; j<2; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] 
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridX==0 && myPanel.mouseDownGridY==0)
-										//Top Left
-									{
-										for (int i=0; i<2; i++) 
-										{
-											for (int j=0; j<2; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridX==8 && myPanel.mouseDownGridY==0)
-										//Top Right
-									{
-										for (int i=-1; i<1; i++) 
-										{
-											for (int j=0; j<2; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridX==8 && myPanel.mouseDownGridY==8)
-										//Bottom Right
-									{
-										for (int i=-1; i<1; i++) 
-										{
-											for (int j=-1; j<1; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridX==0 && myPanel.mouseDownGridY==8)
-										//Bottom Left
-									{
-										for (int i=0; i<2; i++) 
-										{
-											for (int j=-1; j<1; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridX==0 && myPanel.mouseDownGridY>0 && myPanel.mouseDownGridY<8)
-										//Left Column
-									{
-										for (int i=0; i<2; i++) 
-										{
-											for (int j=-1; j<2; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridX==8 && myPanel.mouseDownGridY>0 && myPanel.mouseDownGridY<8)
-										//Right Column
-									{
-										for (int i=-1; i<1; i++) 
-										{
-											for (int j=-1; j<2; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridY==0 && myPanel.mouseDownGridX>0 && myPanel.mouseDownGridX<8)
-										//Top Row
-									{
-										for (int i=-1; i<2; i++) 
-										{
-											for (int j=0; j<2; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									if (myPanel.mouseDownGridY==8 && myPanel.mouseDownGridX>0 && myPanel.mouseDownGridX<8)
-										//Bottom Row
-									{
-										for (int i=-1; i<2; i++) 
-										{
-											for (int j=-1; j<1; j++) 
-											{
-
-												if (myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-														== MINE || myPanel.buttons[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]
-																== MINEFLAG) 
-												{
-													neighborCount++;
-												}
-											}
-										}
-									}
-									System.out.println("Neighbor: "+neighborCount);
-									myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = grayChecked;
 									myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = CHECKED;
+									myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = grayChecked;
 								}
 							}
 						}
-						System.out.println("Identity: "+myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY]);
-						if (neighborCount != 0) {
-							localMines = Integer.toString(neighborCount);
-							System.out.println("Local mines: "+localMines);
-						}
 					}
+				}		
+				myPanel.repaint();
+				KMinesGameOver winGame = new KMinesGameOver();
+				try {
+					winGame.showWinGameDialog(e);
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+
 				}
-			}
-			myPanel.repaint();
-			KMinesGameOver winGame = new KMinesGameOver();
-			try {
-				winGame.showWinGameDialog(e);
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 			break;
 		case 3:		//Right mouse button 

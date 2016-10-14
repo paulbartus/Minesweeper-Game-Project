@@ -96,7 +96,7 @@ public class KMinesGameOver {
 			for (int j=0; j<9; j++) 
 			{
 
-				if (myPanel.buttons[i][j] == 0)
+				if (myPanel.buttons[i][j] == 0 || myPanel.buttons[i][j] == 2)
 				{
 					winner ++;
 				}
