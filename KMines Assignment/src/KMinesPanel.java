@@ -13,22 +13,19 @@ public class KMinesPanel extends JPanel
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
-	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	Color[][] coverButtons = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	int[][] buttons = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	int[][] counts = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	int MINE = -1;
 	int EMPTY = 0;
 	
 	private Random generator = new Random();
 
 	public void randomMines() {
-		for (int i=0; i<9; i++) {
+		for (int i=0; i<9; i++) { //ACUERDATE BORRAR ESTO AL FINAL
 			for (int j=0; j<9; j++) {
 				buttons[i][j] = MINE;
 			}
@@ -60,7 +57,7 @@ public class KMinesPanel extends JPanel
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   // All of the Grid
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-				buttons[x][y] = 0; 
+				buttons[x][y] = EMPTY; 
 			}
 		}
 		randomMines();

@@ -4,7 +4,6 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
-
 import javax.swing.JFrame;
 
 public class KMinesMouseAdapter extends MouseAdapter 
@@ -90,22 +89,26 @@ public class KMinesMouseAdapter extends MouseAdapter
 			{
 				//Had pressed outside do nothing
 			} else {
-				if ((gridX == -1) || (gridY == -1)) {
+				if ((gridX == -1) || (gridY == -1)) 
+				{
 					//Is releasing outside
 					//Do nothing	
 				} else {
-					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
+					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) 
+					{
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
 						//On all the grids
 						if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINEFLAG || 
-								myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == DUMMYFLAG) {
+								myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == DUMMYFLAG) 
+						{
 							//Do nothing
 						} else {
 
-							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
+							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) 
+							{
 								myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = blackMine;
 								myPanel.repaint();
 								KMinesGameOver blownMine = new KMinesGameOver();
@@ -294,25 +297,30 @@ public class KMinesMouseAdapter extends MouseAdapter
 			}
 			break;
 		case 3:		//Right mouse button 
-			if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == EMPTY) {
+			if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == EMPTY) 
+			{
 				myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = redFlag;
 				myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = DUMMYFLAG;
 				//Empty slot flagged
 			} else {
-				if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) {
+				if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINE) 
+				{
 					myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = redFlag;
 					myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = MINEFLAG;
 					//Mine flagged
 				} else {
-					if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == CHECKED) {
+					if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == CHECKED) 
+					{
 						//Do nothing
 					} else {
-						if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == DUMMYFLAG) {
+						if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == DUMMYFLAG) 
+						{
 							myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = whiteNotChecked;
 							myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = EMPTY;
 							//Removes flag on empty slot
 						} else {
-							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINEFLAG) {
+							if (myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == MINEFLAG) 
+							{
 								myPanel.coverButtons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = whiteNotChecked;
 								myPanel.buttons[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = MINE;
 								//Remove flag on mine
