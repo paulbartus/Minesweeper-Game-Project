@@ -41,22 +41,29 @@ public class KMinesPanel extends JPanel
 	}
 	
 	public KMinesPanel() {   //This is the constructor... this code runs first to initialize
-		if (INNER_CELL_SIZE + (generator).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
+		if (INNER_CELL_SIZE + (generator).nextInt(1) < 1) //Use of "random" to prevent unwanted Eclipse warning
+		{
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
-		if (TOTAL_COLUMNS + (generator).nextInt(1) < 2) {	//Use of "random" to prevent unwanted Eclipse warning
+		if (TOTAL_COLUMNS + (generator).nextInt(1) < 2) //Use of "random" to prevent unwanted Eclipse warning
+		{
 			throw new RuntimeException("TOTAL_COLUMNS must be at least 2!");
 		}
-		if (TOTAL_ROWS + (generator).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
+		if (TOTAL_ROWS + (generator).nextInt(1) < 3) //Use of "random" to prevent unwanted Eclipse warning
+		{
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {   // All of the Grid
-			for (int y = 0; y < TOTAL_ROWS; y++) {
+		for (int x = 0; x < TOTAL_COLUMNS; x++) // All of the Grid
+		{
+			for (int y = 0; y < TOTAL_ROWS; y++) 
+			{
 				coverButtons[x][y] = Color.WHITE; 
 			}
 		}
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {   // All of the Grid
-			for (int y = 0; y < TOTAL_ROWS; y++) {
+		for (int x = 0; x < TOTAL_COLUMNS; x++) // All of the Grid
+		{
+			for (int y = 0; y < TOTAL_ROWS; y++) 
+			{
 				buttons[x][y] = EMPTY; 
 			}
 		}
@@ -80,7 +87,6 @@ public class KMinesPanel extends JPanel
 		g.setColor(Color.GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
 
-		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 9x9 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
 		g.setColor(Color.BLUE);
 		for (int y = 0; y <= TOTAL_ROWS; y++) 
