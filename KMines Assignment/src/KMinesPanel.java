@@ -19,7 +19,7 @@ public class KMinesPanel extends JPanel
 	public int mouseDownGridY = 0;
 	Color[][] coverButtons = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	int[][] buttons = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	int[][] neighborButtons;
+	public String[][] neighborButtons = new String[TOTAL_COLUMNS][TOTAL_ROWS];
 	int EMPTY = 0;
 	int MINE = -1;
 	int MINEFLAG = -2;
@@ -49,6 +49,7 @@ public class KMinesPanel extends JPanel
 			}
 		}
 		randomMines();
+		neighborCounter();
 		this.setLayout(null);
 	}
 	
@@ -58,7 +59,8 @@ public class KMinesPanel extends JPanel
 		{
 			for (int y = 0; y < TOTAL_ROWS; y++) 
 			{
-				buttons[x][y] = EMPTY; 
+				buttons[x][y] = EMPTY;
+				neighborButtons[x][y] = "";
 			}
 		}
 		for (int i=0; i<10; i++) 
@@ -74,13 +76,13 @@ public class KMinesPanel extends JPanel
 		}
 	}
 	
-	public int[][] neighborCounter()
+	public String[][] neighborCounter()
 	{
-		int neighborCount = 0;
 		for (int x=0; x<9; x++)
 		{
 			for (int y=0; y<9; y++) 
 			{
+				int neighborCount = 0;
 				if (buttons[x][y] == EMPTY)
 				{
 					if (x>0 && x<8 && y>0 && y<8)
@@ -218,7 +220,7 @@ public class KMinesPanel extends JPanel
 							}
 						}
 					}
-					neighborButtons[x][y] = neighborCount;
+					neighborButtons[x][y] = neighborCount+"";
 				}
 			}
 		}
@@ -272,37 +274,13 @@ public class KMinesPanel extends JPanel
 				}
 				if (buttons[x][y] == CHECKED)
 				{
-					int[][] local = neighborCounter();
-					String localMines = Integer.toString(local[x][y]);
-					System.out.println(localMines);
-//					String localMines = Integer.toString(local);
-//					g.setColor(Color.BLACK);
-//					g.drawString(localMines, x*(INNER_CELL_SIZE+1) + 38, (y*30)+44);
+					
+					neighborButtons = neighborCounter();
+					g.setColor(Color.BLACK);
+					g.drawString(neighborButtons[x][y], x*(INNER_CELL_SIZE+1) + 38, (y*30)+44);
 				}
 			}
 		}
-//		for (int i=0; i<TOTAL_COLUMNS; i++)
-//		{
-//			for (int j=0; j<TOTAL_ROWS; j++)
-//			{
-//				if (buttons[i][j] == 1)
-//				{
-//					if (neighborButtons[i][j] != 0)
-//					{
-//					String localMines = Integer.toString(neighborButtons[i][j]);
-//					JLabel label = new JLabel(localMines);
-//					KMinesMain.myFrame.add(label);
-//					label.setFont(new Font("Comic Sans", Font.BOLD, 25));
-//					label.setOpaque(true);
-//					label.setVisible(true);
-//					label.setLocation(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1+(j*(INNER_CELL_SIZE+1))+15);
-//					this.add(label);
-//					}
-//				} else {
-//					//Do nothing
-//				}
-//			}
-//		}
 	}
 	
 	public int getGridX(int x, int y) 
