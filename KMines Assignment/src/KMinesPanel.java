@@ -220,7 +220,15 @@ public class KMinesPanel extends JPanel
 							}
 						}
 					}
+					if (neighborCount>0)
+					{
 					neighborButtons[x][y] = neighborCount+"";
+					} else {
+						if (neighborCount==0)
+						{
+							neighborButtons[x][y] = "";
+						}
+					}
 				}
 			}
 		}
