@@ -50,7 +50,6 @@ public class KMinesPanel extends JPanel
 		}
 		randomMines();
 		neighborCounter();
-		this.setLayout(null);
 	}
 	
 	public void randomMines() 
@@ -65,14 +64,14 @@ public class KMinesPanel extends JPanel
 		}
 		for (int i=0; i<10; i++) 
 		{
-//			int xMine = generator.nextInt(9);
-//			int yMine = generator.nextInt(9);
-//			buttons[xMine][yMine] = MINE;
-			buttons[5][5] = MINE;
-			buttons[3][3] = MINE;
-			buttons[4][3] = MINE;
-			buttons[7][5] = MINE;
-			buttons[2][7] = MINE;
+			int xMine = generator.nextInt(9);
+			int yMine = generator.nextInt(9);
+			buttons[xMine][yMine] = MINE;
+//			buttons[5][5] = MINE;
+//			buttons[3][3] = MINE;
+//			buttons[4][3] = MINE;
+//			buttons[7][5] = MINE;
+//			buttons[2][7] = MINE;
 		}
 	}
 	

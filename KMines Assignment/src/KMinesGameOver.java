@@ -102,8 +102,6 @@ public class KMinesGameOver {
 				}
 			}
 		}
-		System.out.println("Spaces left: "+winner);
-		
 		if (winner == 0) 
 		{									
 			for (int i=0; i<9; i++) 
