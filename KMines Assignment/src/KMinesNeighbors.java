@@ -1,155 +1,36 @@
-public class KMinesNeighbors extends KMinesPanel
-{
-	private static final long serialVersionUID = 1L;
-
-	public int[][] neighborCounter()
-	{
-		int neighborCount = 0;
-		for (int x=0; x<9; x++)
-		{
-			for (int y=0; y<9; y++) 
-			{
-				if (buttons[x][y] == EMPTY)
-				{
-					if (x>0 && x<8 && y>0 && y<8)
-					//Inner squares
-					{
-						for (int i=-1; i<2; i++) 
-						{
-							for (int j=-1; j<2; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (x==0 && y==0)
-						//Top Left
-					{
-						for (int i=0; i<2; i++) 
-						{
-							for (int j=0; j<2; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (x==8 && y==0)
-						//Top Right
-					{
-						for (int i=-1; i<1; i++) 
-						{
-							for (int j=0; j<2; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (x==8 && y==8)
-						//Bottom Right
-					{
-						for (int i=-1; i<1; i++) 
-						{
-							for (int j=-1; j<1; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (x==0 && y==8)
-						//Bottom Left
-					{
-						for (int i=0; i<2; i++) 
-						{
-							for (int j=-1; j<1; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (x==0 && y>0 && y<8)
-						//Left Column
-					{
-						for (int i=0; i<2; i++) 
-						{
-							for (int j=-1; j<2; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (x==8 && y>0 && y<8)
-						//Right Column
-					{
-						for (int i=-1; i<1; i++) 
-						{
-							for (int j=-1; j<2; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (y==0 && x>0 && x<8)
-						//Top Row
-					{
-						for (int i=-1; i<2; i++) 
-						{
-							for (int j=0; j<2; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					if (y==8 && x>0 && x<8)
-						//Bottom Row
-					{
-						for (int i=-1; i<2; i++) 
-						{
-							for (int j=-1; j<1; j++) 
-							{
-
-								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
-								{
-									neighborCount++;
-								}
-							}
-						}
-					}
-					neighborButtons[x][y] = neighborCount;
-				}
-			}
-		}
-		return neighborButtons;
-	}
-}
+//import java.awt.Color;
+//import java.awt.Font;
+//import java.awt.Graphics;
+//import java.awt.Insets;
+//import javax.swing.JPanel;
+//
+//public class KMinesNeighbors extends JPanel
+//{
+//	private static final long serialVersionUID = 1L;
+//
+//	public void neighborPainter(Graphics g)
+//	{
+//		KMinesPanel buttons = new KMinesPanel();
+//		for (int i=0; i<9; i++)
+//		{
+//			for (int j=0; j<9; j++)
+//			{
+//				if (buttons.buttons[i][j] == 1 || buttons.neighborButtons[i][j] != 0)
+//				{
+//					super.paintComponent(g);
+//
+//					String localMines = Integer.toString(buttons.neighborButtons[i][j]);
+//					Insets myInsets = getInsets();
+//					int x1 = myInsets.left;
+//					int y1 = myInsets.top;
+//
+//					g.setColor(Color.BLUE);
+//					g.setFont(new Font("TimesRoman", Font.BOLD, 10));
+//					g.drawString(localMines, x1+(i*(buttons.INNER_CELL_SIZE+1))+15, y1+(j*(buttons.INNER_CELL_SIZE+1))+15);
+//
+//					repaint();
+//				}
+//			}
+//		}
+//	}
+//}

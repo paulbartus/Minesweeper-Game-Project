@@ -10,7 +10,7 @@ public class KMinesPanel extends JPanel
 	
 	public static final int GRID_X = 25;
 	public static final int GRID_Y = 25;
-	public static final int INNER_CELL_SIZE = 29;
+	public final int INNER_CELL_SIZE = 29;
 	public static final int TOTAL_COLUMNS = 9;
 	public static final int TOTAL_ROWS = 9;
 	public int x = -1;
@@ -27,7 +27,8 @@ public class KMinesPanel extends JPanel
 	int CHECKED = 1;
 	private Random generator = new Random();
 	
-	public KMinesPanel() {   //This is the constructor... this code runs first to initialize
+	public KMinesPanel() //This is the constructor... this code runs first to initialize
+	{
 		if (INNER_CELL_SIZE + (generator).nextInt(1) < 1) //Use of "random" to prevent unwanted Eclipse warning
 		{
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -48,9 +49,11 @@ public class KMinesPanel extends JPanel
 			}
 		}
 		randomMines();
+		this.setLayout(null);
 	}
 	
-	public void randomMines() {
+	public void randomMines() 
+	{
 		for (int x = 0; x < TOTAL_COLUMNS; x++) // All of the Grid
 		{
 			for (int y = 0; y < TOTAL_ROWS; y++) 
@@ -58,7 +61,8 @@ public class KMinesPanel extends JPanel
 				buttons[x][y] = EMPTY; 
 			}
 		}
-		for (int i=0; i<10; i++) {
+		for (int i=0; i<10; i++) 
+		{
 //			int xMine = generator.nextInt(9);
 //			int yMine = generator.nextInt(9);
 //			buttons[xMine][yMine] = MINE;
@@ -70,6 +74,157 @@ public class KMinesPanel extends JPanel
 		}
 	}
 	
+	public int[][] neighborCounter()
+	{
+		int neighborCount = 0;
+		for (int x=0; x<9; x++)
+		{
+			for (int y=0; y<9; y++) 
+			{
+				if (buttons[x][y] == EMPTY)
+				{
+					if (x>0 && x<8 && y>0 && y<8)
+					//Inner squares
+					{
+						for (int i=-1; i<2; i++) 
+						{
+							for (int j=-1; j<2; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (x==0 && y==0)
+						//Top Left
+					{
+						for (int i=0; i<2; i++) 
+						{
+							for (int j=0; j<2; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (x==8 && y==0)
+						//Top Right
+					{
+						for (int i=-1; i<1; i++) 
+						{
+							for (int j=0; j<2; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (x==8 && y==8)
+						//Bottom Right
+					{
+						for (int i=-1; i<1; i++) 
+						{
+							for (int j=-1; j<1; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (x==0 && y==8)
+						//Bottom Left
+					{
+						for (int i=0; i<2; i++) 
+						{
+							for (int j=-1; j<1; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (x==0 && y>0 && y<8)
+						//Left Column
+					{
+						for (int i=0; i<2; i++) 
+						{
+							for (int j=-1; j<2; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (x==8 && y>0 && y<8)
+						//Right Column
+					{
+						for (int i=-1; i<1; i++) 
+						{
+							for (int j=-1; j<2; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (y==0 && x>0 && x<8)
+						//Top Row
+					{
+						for (int i=-1; i<2; i++) 
+						{
+							for (int j=0; j<2; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					if (y==8 && x>0 && x<8)
+						//Bottom Row
+					{
+						for (int i=-1; i<2; i++) 
+						{
+							for (int j=-1; j<1; j++) 
+							{
+
+								if (buttons[x+i][y+j] == MINE || buttons[x+i][y+j] == MINEFLAG) 
+								{
+									neighborCount++;
+								}
+							}
+						}
+					}
+					neighborButtons[x][y] = neighborCount;
+				}
+			}
+		}
+		return neighborButtons;
+	}
+		
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -105,18 +260,53 @@ public class KMinesPanel extends JPanel
 		}
 
 		//Paint cell colors
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {
-			for (int y = 0; y < TOTAL_ROWS; y++) {
-				if ((x == 0) || (y != TOTAL_ROWS)) {
+		for (int x = 0; x < TOTAL_COLUMNS; x++) 
+		{
+			for (int y = 0; y < TOTAL_ROWS; y++) 
+			{
+				if ((x == 0) || (y != TOTAL_ROWS)) 
+				{
 					Color c = coverButtons[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 				}
+				if (buttons[x][y] == CHECKED)
+				{
+					int[][] local = neighborCounter();
+					String localMines = Integer.toString(local[x][y]);
+					System.out.println(localMines);
+//					String localMines = Integer.toString(local);
+//					g.setColor(Color.BLACK);
+//					g.drawString(localMines, x*(INNER_CELL_SIZE+1) + 38, (y*30)+44);
+				}
 			}
 		}
+//		for (int i=0; i<TOTAL_COLUMNS; i++)
+//		{
+//			for (int j=0; j<TOTAL_ROWS; j++)
+//			{
+//				if (buttons[i][j] == 1)
+//				{
+//					if (neighborButtons[i][j] != 0)
+//					{
+//					String localMines = Integer.toString(neighborButtons[i][j]);
+//					JLabel label = new JLabel(localMines);
+//					KMinesMain.myFrame.add(label);
+//					label.setFont(new Font("Comic Sans", Font.BOLD, 25));
+//					label.setOpaque(true);
+//					label.setVisible(true);
+//					label.setLocation(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1+(j*(INNER_CELL_SIZE+1))+15);
+//					this.add(label);
+//					}
+//				} else {
+//					//Do nothing
+//				}
+//			}
+//		}
 	}
 	
-	public int getGridX(int x, int y) {
+	public int getGridX(int x, int y) 
+	{
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
 		int y1 = myInsets.top;
@@ -138,8 +328,9 @@ public class KMinesPanel extends JPanel
 		}
 		return x;
 	}
-	
-	public int getGridY(int x, int y) {
+
+	public int getGridY(int x, int y) 
+	{
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
 		int y1 = myInsets.top;
